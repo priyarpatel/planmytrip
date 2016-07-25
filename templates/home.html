@@ -1,21 +1,39 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>My Home</title>
+        <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
 {% extends "base.html" %}
 {% block title %}Home for {{user}}{% endblock %}
 
 {% block content %}
+
 <a href="usercontrols">User Control Page</a></li>
-<h1>Upcoming Trips</h1>
-<table>
-  <tr bgcolor = "gray">
-      <th>Trip</th><th>Col2</th><th>Col3</th>
-  </tr>
-  <tr>
-  </tr>
-  {% for trip in trips %}
-    <tr>
-      {% for field in trip %}
-        <td>{{field}}</td>
-      {% endfor %}
-    </tr>
-  {% endfor %}
-</table>
-{% endblock %}
+<h1>My Home</h1>
+
+    <body>
+        <div class="table-title">
+            <h3>Upcoming Trips</h3>
+        </div>
+        <table class="table-fill">
+            <th>
+                <tr>
+                    <th class="text-left">Date</th>
+                    <th class="text-left">City</th>
+                    <th class="text-left">Begins</th>
+                    <th class="text-left">Ends</th>
+                    <th class="text-left">Price</th>
+                </tr>
+            </th>
+                {% for trip in trips %}
+                  <tr>
+                    {% for field in trip %}
+                      <td>{{field}}</td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+        </table>
+        {% endblock %}
+    </body>
