@@ -56,7 +56,7 @@ def usercontrols():
     cursor.execute(
         "select last_name, first_name, email from user order by last_name asc")
     rows=cursor.fetchall()
-    column_names=[desc[0] for des in cursor.description]
+    column_names=[desc[0] for desc in cursor.description]
     cursor.close()
     return render_template('ADMINONLYusercontrolpage.html', 
                            columns=column_names, rows=rows)
