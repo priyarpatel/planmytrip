@@ -53,6 +53,17 @@ def home():
     return render_template('home.html', rentals=rentals,
                            customer=session['customer_name'])
 
+@app.route('/usercontrols')
+def usercontrols():
+    cursor = db.cursor()
+    cursor.execute(
+        "select last_name, first_name, email from user order by last_name asc")
+    rows=cursor.fetchall()
+    column_names=[desc[0] for des in cursor.description]
+    cursor.close()
+    return render_template('ADMINONLYusercontrolpage.html', 
+                           columns=column_names, rows=rows)
+
 @app.route('/browse_db')
 def browse_db():
     cursor = db.cursor()
