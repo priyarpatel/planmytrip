@@ -21,13 +21,13 @@ def index():
     if form.validate_on_submit():
         cursor = db.cursor()
         print("form.email.data=" + form.email.data)
-        cursor.execute("select customer_id, first_name, last_name " +
-                       "from customer where email = %s",
+        cursor.execute("select email, first_name, last_name " +
+                       "from user where email = %s",
                        (form.email.data,))
         rows = cursor.fetchall()
         if rows:
             print("successful login")
-            session['customer_id'] = rows[0][0]
+            session['email'] = rows[0][0]
             session['customer_name'] = "{} {}".format(rows[0][1], rows[0][2])
             return redirect(url_for('home'))
         else:
@@ -39,19 +39,16 @@ def index():
 def home():
     cursor = db.cursor()
     cursor.execute(
-        "select rental_id, date(rental_date),  " +
-        "       date(rental_date + interval film.rental_duration day) as due_date, " +
-        "       film.title " +
-        "from rental join inventory using(inventory_id) " +
-        "            join film using (film_id) "+
-        "where customer_id = %s and return_date is null",
-        (session['customer_id']))
-    Rental = namedtuple('Rental', ['rental_id', 'rental_date',
-                                   'due_date', 'film_title'])
-    rentals = [Rental._make(row) for row in cursor.fetchall()]
+        "select trip_date as Date, city as City, start_time as Begins, " +
+        "end_time as Ends, total_cost as Price from trip " +
+        "where trip_date >= CURDATE() and email = %s",
+        (session['email']))
+    Trip = namedtuple('Trip', ['date', 'city', 'start_time', 'end_time',
+                                   'total_cost'])
+    trips = [Trip._make(row) for row in cursor.fetchall()]
     cursor.close()
-    return render_template('home.html', rentals=rentals,
-                           customer=session['customer_name'])
+    return render_template('home.html', trips=trips,
+                           user=session['customer_name'])
 
 @app.route('/usercontrols')
 def usercontrols():

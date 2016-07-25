@@ -1,9 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Home for {{customer}}{% endblock %}
+{% block title %}Home for {{user}}{% endblock %}
 
 {% block content %}
 <h1>Upcoming Trips</h1>
 <table>
+  <tr bgcolor = "gray">
+      <th>Trip</th><th>Col2</th><th>Col3</th>
+  </tr>
   <tr>
   </tr>
   {% for trip in trips %}
