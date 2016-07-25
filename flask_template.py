@@ -72,7 +72,7 @@ def table(table):
                            columns=column_names, rows=rows)
 
 if __name__ == '__main__':
-    dbname = 'sakila'
+    dbname = 'team3'
     db = pymysql.connect(host='localhost',
                          user='root', passwd='', db=dbname)
     app.run(debug=True)
