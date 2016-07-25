@@ -39,16 +39,21 @@ def index():
 def home():
     cursor = db.cursor()
     cursor.execute(
-        "select trip_date as Date, city as City, start_time as Begins, " +
-        "end_time as Ends, total_cost as Price from trip " +
+        "select city as City, trip_date as Date from trip " +
         "where trip_date >= CURDATE() and email = %s",
         (session['email']))
-    Trip = namedtuple('Trip', ['date', 'city', 'start_time', 'end_time',
-                                   'total_cost'])
+    Trip = namedtuple('Trip', ['city', 'date'])
     trips = [Trip._make(row) for row in cursor.fetchall()]
     cursor.close()
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
+
+# not working
+@app.route('/userprofile/<user>')
+def userprofile():
+    user = session['email'].split('@')[0]
+    print(user)
+    render_template("userprofile.html", username = session['email'])
 
 @app.route('/usercontrols')
 def usercontrols():
@@ -58,7 +63,7 @@ def usercontrols():
     rows=cursor.fetchall()
     column_names=[desc[0] for desc in cursor.description]
     cursor.close()
-    return render_template('ADMINONLYusercontrolpage.html', 
+    return render_template('ADMINONLYusercontrolpage.html',
                            columns=column_names, rows=rows)
 
 @app.route('/browse_db')
@@ -82,6 +87,6 @@ def table(table):
 if __name__ == '__main__':
     dbname = 'team3'
     db = pymysql.connect(host='localhost',
-                         user='root', passwd='cs4400', db=dbname)
+                         user='root', passwd='', db=dbname)
     app.run(debug=True)
     db.close()
