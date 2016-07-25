@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Home for {{customer}}{% endblock %}
+
+{% block content %}
+<h1>Rentals</h1>
+<table>
+  <tr>
+  </tr>
+  {% for rental in rentals %}
+    <tr>
+      {% for field in rental %}
+        <td>{{field}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
