@@ -31,7 +31,7 @@ def index():
             session['customer_name'] = "{} {}".format(rows[0][1], rows[0][2])
             return redirect(url_for('home'))
         else:
-            flash('Email address not found in customer database.')
+            flash('Email address not found in user database.')
             return redirect(url_for('index'))
     return render_template('index.html', form=form)
 
@@ -48,11 +48,14 @@ def home():
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
 
-@app.route('/userprofile/<user>')
+@app.route('/trip')
+def trip():
+    return render_template('trip.html')
+
+@app.route('/userporifle/<user>')
 def userprofile(user):
-        # url_for('.userprofile', user = username)
-        user = session['email'].split('@')[0]
-        return render_template('userprofile.html', name = session['customer_name'])
+    user = session['email'].split('@')[0]
+    return render_template('userprofile.html', name=session['customer_name'])
 
 @app.route('/usercontrols')
 def usercontrols():
@@ -60,14 +63,57 @@ def usercontrols():
     cursor.execute(
         "select last_name, first_name, email from user order by last_name asc")
     rows=cursor.fetchall()
+    edit= SubmitField("Edit")
+    delete= SubmitField("Delete")
     column_names=[desc[0] for desc in cursor.description]
     cursor.close()
     return render_template('ADMINONLYusercontrolpage.html',
                            columns=column_names, rows=rows)
 
-@app.route('/trip')
-def trip():
-    return render_template('trip.html')
+@app.route('/attractioncontrols')
+def attractioncontrols():
+    cursor = db.cursor()
+    cursor.execute(
+        "select name, city, country from attraction order by name asc")
+    rows=cursor.fetchall()
+    column_names=[desc[0] for desc in cursor.description]
+    cursor.close()
+    return render_template('ADMINONLYattractioncontrolpage.html',
+                           columns=column_names, rows=rows)
+
+@app.route('/addattraction',methods=['GET', 'POST'])
+def addattraction():
+    form=addattractionForm()
+    #validate statements
+    return render_template('ADMINONLYaddattractionpage.html', form=form)
+
+class addattractionForm():
+    name = StringField('Name', validators=[Required()])
+    street_no = StringField('Street Number', validators=[Required()])
+    street = StringField('Street', validators=[Required()])
+    city = StringField('City', validators=[Required()])
+    state = StringField('State', validators=[Required()])
+    zipcode = StringField('Zip Code', validators=[Required()])
+    country = StringField('Country', validators=[Required()])
+    description = StringField('Description', validators=[Required()])
+    nearestpubtransit = StringField('Nearest Public Transit', validators=[Required()])
+    resreq = StringField('Reservation Required (Y/N)', validators=[Required()])
+    MonOpen = StringField('Opening hour on Monday', validators=[Required()])
+    MonClosed = StringField('Closing hour on Monday', validators=[Required()])
+    TuesOpen = StringField('Opening hour on Tuesday', validators=[Required()])
+    TuesClosed = StringField('Closing hour on Tuesday', validators=[Required()])
+    WedOpen = StringField('Opening hour on Wednesday', validators=[Required()])
+    WedClosed = StringField('Closing hour on Wednesday', validators=[Required()])
+    ThursOpen = StringField('Opening hour on Thursday', validators=[Required()])
+    ThursClosed = StringField('Closing hour on Thursday', validators=[Required()])
+    FriOpen = StringField('Opening hour on Friday', validators=[Required()])
+    FriClosed = StringField('Closing hour on Friday', validators=[Required()])
+    SatOpen = StringField('Opening hour on Saturday', validators=[Required()])
+    SatClosed = StringField('Closing hour on Saturday', validators=[Required()])
+    SunOpen = StringField('Opening hour on Sunday', validators=[Required()])
+    SunClosed = StringField('Closing hour on Sunday', validators=[Required()])
+    submit = SubmitField('Add Attraction')
+
 
 @app.route('/browse_db')
 def browse_db():
@@ -76,7 +122,6 @@ def browse_db():
     tables = [field[0] for field in cursor.fetchall()]
     cursor.close()
     return render_template('browse_db.html', dbname=dbname, tables=tables)
-
 
 @app.route('/table/<table>')
 def table(table):
@@ -91,6 +136,6 @@ def table(table):
 if __name__ == '__main__':
     dbname = 'team3'
     db = pymysql.connect(host='localhost',
-                         user='root', passwd='cs4400', db=dbname)
+                         user='root', passwd='', db=dbname)
     app.run(debug=True)
     db.close()
