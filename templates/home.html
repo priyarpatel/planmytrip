@@ -1,36 +1,22 @@
 {% extends "base.html" %}
 {% block title %}Home for {{user}}{% endblock %}
+
 {% block content %}
-<html>
-    <head>
-        <meta charset="utf-8" />
-	    <meta name="viewport" content="initial-scale=1.0;
-            maximum-scale=1.0; width=device-width;"/>
-        <title>Home</title>
-    </head>
-<body>
-
-    <h1>My Home</h1>
-    <a href="usercontrols">User Control</a>
-    <h2>Upcoming Trips</h2>
-
-    <a href="trip">Create a New Trip</a>
-    <table class="container">
-        <thead>
-            <tr>
-                <th><h3>City</h3></th>
-                <th><h3>Date</h3></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for trip in trips %}
-              <tr>
-                {% for field in trip %}
-                  <td>{{field}}</td>
-                {% endfor %}
-              </tr>
-            {% endfor %}
-        </table>
-    </body>
-</html>
- {% endblock %}
+<a href="usercontrols">User Control Page</a></li>
+<a href="attractioncontrols">Attraction Control Page</a></li>
+<h1>Upcoming Trips</h1>
+<table>
+  <tr bgcolor = "gray">
+      <th>Trip</th><th>Col2</th><th>Col3</th>
+  </tr>
+  <tr>
+  </tr>
+  {% for trip in trips %}
+    <tr>
+      {% for field in trip %}
+        <td>{{field}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
