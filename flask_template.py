@@ -51,9 +51,8 @@ def home():
 @app.route('/userprofile/<user>')
 def userprofile(user):
         # url_for('.userprofile', user = username)
-        user = session['email']
-        username = user.split('@')[0]
-        return render_template('userprofile.html', name = username)
+        user = session['email'].split('@')[0]
+        return render_template('userprofile.html', name = session['customer_name'])
 
 @app.route('/usercontrols')
 def usercontrols():
@@ -66,6 +65,10 @@ def usercontrols():
     return render_template('ADMINONLYusercontrolpage.html',
                            columns=column_names, rows=rows)
 
+@app.route('/trip')
+def trip():
+    return render_template('trip.html')
+
 @app.route('/browse_db')
 def browse_db():
     cursor = db.cursor()
@@ -73,6 +76,7 @@ def browse_db():
     tables = [field[0] for field in cursor.fetchall()]
     cursor.close()
     return render_template('browse_db.html', dbname=dbname, tables=tables)
+
 
 @app.route('/table/<table>')
 def table(table):
