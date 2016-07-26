@@ -80,7 +80,7 @@ def addattraction():
     #validate statements
     return render_template('ADMINONLYaddattractionpage.html', form=form)
 
-def addattractionForm():
+class addattractionForm():
     name = StringField('Name', validators=[Required()])
     street_no = StringField('Street Number', validators=[Required()])
     street = StringField('Street', validators=[Required()])
@@ -106,7 +106,6 @@ def addattractionForm():
     SunOpen = StringField('Opening hour on Sunday', validators=[Required()])
     SunClosed = StringField('Closing hour on Sunday', validators=[Required()])
     submit = SubmitField('Add Attraction')
-    
     
 
 @app.route('/browse_db')
