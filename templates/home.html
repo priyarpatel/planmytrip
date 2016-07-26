@@ -1,22 +1,28 @@
+
 {% extends "base.html" %}
 {% block title %}Home for {{user}}{% endblock %}
 
 {% block content %}
-<a href="usercontrols">User Control Page</a></li>
-<a href="attractioncontrols">Attraction Control Page</a></li>
-<h1>Upcoming Trips</h1>
-<table>
-  <tr bgcolor = "gray">
-      <th>Trip</th><th>Col2</th><th>Col3</th>
-  </tr>
-  <tr>
-  </tr>
-  {% for trip in trips %}
-    <tr>
-      {% for field in trip %}
-        <td>{{field}}</td>
+<head>
+    <title>My Home</title>
+    <link rel = "stylesheet" href = "{{ url_for('static',filename='stylesheets/style.css') }}")>
+</head>
+<body>
+    <p><a href="usercontrols">User Control Page</a></p>
+    <p><a href="attractioncontrols">Attraction Control Page</a></p>
+    <p><a href="trip">Create New Trip</a></p>
+    <h1>Upcoming Trips</h1>
+    <table>
+      <tr>
+          <th>City</th><th>Date</th>
+      </tr>
+      {% for trip in trips %}
+        <tr>
+          {% for field in trip %}
+            <td>{{field}}</td>
+          {% endfor %}
+        </tr>
       {% endfor %}
-    </tr>
-  {% endfor %}
-</table>
+    </table>
+</body>
 {% endblock %}
