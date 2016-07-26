@@ -31,7 +31,7 @@ def index():
             session['customer_name'] = "{} {}".format(rows[0][1], rows[0][2])
             return redirect(url_for('home'))
         else:
-            flash('Email address not found in customer database.')
+            flash('Email address not found in user database.')
             return redirect(url_for('index'))
     return render_template('index.html', form=form)
 
@@ -74,8 +74,13 @@ def attractioncontrols():
     return render_template('ADMINONLYattractioncontrolpage.html',
                            columns=column_names, rows=rows)
 
-@app.route('/addattraction')
+@app.route('/addattraction',methods=['GET', 'POST'])
 def addattraction():
+    form=addattractionForm()
+    #validate statements
+    return render_template('ADMINONLYaddattractionpage.html', form=form)
+
+def addattractionForm():
     name = StringField('Name', validators=[Required()])
     street_no = StringField('Street Number', validators=[Required()])
     street = StringField('Street', validators=[Required()])
@@ -100,7 +105,7 @@ def addattraction():
     SatClosed = StringField('Closing hour on Saturday', validators=[Required()])
     SunOpen = StringField('Opening hour on Sunday', validators=[Required()])
     SunClosed = StringField('Closing hour on Sunday', validators=[Required()])
-    
+    submit = SubmitField('Add Attraction')
     
     
 
