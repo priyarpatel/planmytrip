@@ -39,16 +39,19 @@ def index():
 def home():
     cursor = db.cursor()
     cursor.execute(
-        "select trip_date as Date, city as City, start_time as Begins, " +
-        "end_time as Ends, total_cost as Price from trip " +
+        "select city as City, trip_date as Date from trip " +
         "where trip_date >= CURDATE() and email = %s",
         (session['email']))
-    Trip = namedtuple('Trip', ['date', 'city', 'start_time', 'end_time',
-                                   'total_cost'])
+    Trip = namedtuple('Trip', ['city', 'date'])
     trips = [Trip._make(row) for row in cursor.fetchall()]
     cursor.close()
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
+
+@app.route('/userporifle/<user>')
+def userprofile(user):
+    user = session['email'].split('@')[0]
+    return render_template('userprofile.html', name=session['customer_name'])
 
 @app.route('/usercontrols')
 def usercontrols():
