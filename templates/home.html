@@ -1,1 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Home for {{user}}{% endblock %}
+
+{% block content %}
+<a href="usercontrols">User Control Page</a></li>
+{% block content %}
+<a href="attractioncontrols">Attraction Control Page</a></li>
+<h1>Upcoming Trips</h1>
+<table>
+  <tr bgcolor = "gray">
+      <th>Trip</th><th>Col2</th><th>Col3</th>
+  </tr>
+  <tr>
+  </tr>
+  {% for trip in trips %}
+    <tr>
+      {% for field in trip %}
+        <td>{{field}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
 
