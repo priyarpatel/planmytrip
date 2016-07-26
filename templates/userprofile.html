@@ -1,15 +1,14 @@
 {% extends "base.html" %}
-{% block title %} {{username}}'s Profile{% endblock %}
+{% block title %} {{name}}'s Profile{% endblock %}
 {% block content %}
 <html>
     <head>
-        <link href="{{ url_for('static', filename='stylesheets/style.css') }}" rel="stylesheet"/>
+        <title>
+            {{name}} Profile
+        </title>
     </head>
 
     <body>
-        <title>
-            {{user}} Profile
-        </title>
         <p>Maybe one day this will contain a working user profile</p>
     </body>
 </html>

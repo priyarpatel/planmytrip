@@ -48,12 +48,12 @@ def home():
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
 
-# not working
 @app.route('/userprofile/<user>')
-def userprofile():
-    user = session['email'].split('@')[0]
-    print(user)
-    render_template("userprofile.html", username = session['email'])
+def userprofile(user):
+        # url_for('.userprofile', user = username)
+        user = session['email']
+        username = user.split('@')[0]
+        return render_template('userprofile.html', name = username)
 
 @app.route('/usercontrols')
 def usercontrols():
