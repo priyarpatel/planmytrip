@@ -67,7 +67,7 @@ def usercontrols():
 def attractioncontrols():
     cursor = db.cursor()
     cursor.execute(
-        "select name, city, state, country from attraction order by name asc")
+        "select name, city, country from attraction order by name asc")
     rows=cursor.fetchall()
     column_names=[desc[0] for desc in cursor.description]
     cursor.close()
