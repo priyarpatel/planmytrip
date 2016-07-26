@@ -56,9 +56,22 @@ def usercontrols():
     cursor.execute(
         "select last_name, first_name, email from user order by last_name asc")
     rows=cursor.fetchall()
+    edit= SubmitField("Edit")
+    delete= SubmitField("Delete")
     column_names=[desc[0] for desc in cursor.description]
     cursor.close()
     return render_template('ADMINONLYusercontrolpage.html', 
+                           columns=column_names, rows=rows)
+
+@app.route('/attractioncontrols')
+def attractioncontrols():
+    cursor = db.cursor()
+    cursor.execute(
+        "select name, city, state, country from attraction order by name asc")
+    rows=cursor.fetchall()
+    column_names=[desc[0] for desc in cursor.description]
+    cursor.close()
+    return render_template('ADMINONLYattractioncontrolpage.html',
                            columns=column_names, rows=rows)
 
 @app.route('/browse_db')
