@@ -3,17 +3,18 @@
 {% block title %}Home for {{user}}{% endblock %}
 
 {% block content %}
-<html>
-    <head>
-        <title> My Home</title>
-    <a href="usercontrols">User Control Page</a></li>
-    <a href="attractioncontrols">Attraction Control Page</a></li>
+<head>
+    <title>My Home</title>
+    <link rel = "stylesheet" href = "{{ url_for('static',filename='stylesheets/style.css') }}")>
+</head>
+<body>
+    <p><a href="usercontrols">User Control Page</a></p>
+    <p><a href="attractioncontrols">Attraction Control Page</a></p>
+    <p><a href="trip">Create New Trip</a></p>
     <h1>Upcoming Trips</h1>
     <table>
-      <tr bgcolor = "gray">
-          <th>Trip</th><th>Col2</th><th>Col3</th>
-      </tr>
       <tr>
+          <th>City</th><th>Date</th>
       </tr>
       {% for trip in trips %}
         <tr>
@@ -23,5 +24,5 @@
         </tr>
       {% endfor %}
     </table>
-</html>
+</body>
 {% endblock %}
