@@ -48,6 +48,10 @@ def home():
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
 
+@app.route('/trip')
+def trip():
+    return render_template('trip.html')
+
 @app.route('/userporifle/<user>')
 def userprofile(user):
     user = session['email'].split('@')[0]
