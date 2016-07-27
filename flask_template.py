@@ -81,7 +81,7 @@ def attractioncontrols():
     return render_template('ADMINONLYattractioncontrolpage.html',
                            columns=column_names, rows=rows)
 
-@app.route('/addattraction',methods=['GET', 'POST'])
+@app.route('/addattraction')
 def addattraction():
     form=addattractionForm()
     #validate statements
