@@ -48,6 +48,10 @@ def home():
     return render_template('home.html', trips=trips,
                            user=session['customer_name'])
 
+@app.route('/createtrip')
+def createtrip():
+    return render_template('createtrip.html')
+
 @app.route('/trip')
 def trip():
     return render_template('trip.html')
@@ -163,6 +167,5 @@ def table(table):
 if __name__ == '__main__':
     dbname = 'team3'
     db = pymysql.connect(host='localhost',
-                         user='root', passwd='', db=dbname)
     app.run(debug=True)
     db.close()
